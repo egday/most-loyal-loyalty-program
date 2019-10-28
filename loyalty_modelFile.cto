@@ -1,0 +1,45 @@
+/**
+ * Loyalty rewards program model file
+ */
+namespace org.acme.loyalty
+
+/* Customer of Game Shop */
+participant customer identified by customerEmail {
+    o String customerEmail
+    o String firstName
+    o String lastName
+    o Double accountBalance
+    o Double pointBalance
+    o String[] games
+}
+
+/* Game Shop Store */
+participant store identified by storeID {
+    o String storeID
+    o String city
+    o String state
+    o String[] games
+}
+
+/* Asset definition for game */
+asset game identified by gameID {
+  	o String gameID
+    o String gameTitle
+    o Double price
+   	o Double pointValue
+}
+
+/* Transaction for purchasing game from store to customer*/
+transaction purchaseGame {
+  --> store store
+  --> customer customer
+  --> game game
+  o Double redeemedPoints
+}
+
+/* Transaction for returning game from customer to store*/
+transaction returnGame {
+  --> store store
+  --> customer customer
+  --> game game
+  }
